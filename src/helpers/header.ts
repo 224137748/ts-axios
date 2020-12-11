@@ -25,3 +25,8 @@ export function processHeaders(headers: any, data: any): any {
 
   return headers
 }
+
+/**
+ *
+ */
+export function parseHeaders() {}
