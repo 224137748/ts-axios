@@ -1,6 +1,7 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/'
 
 import { parseHeaders } from './helpers/header'
+
 /**
  * 封装原生js ajax请求
  * @param config
