@@ -78,6 +78,37 @@ app.get('/error/timeout', (req, res) => {
   }, 3000);
 })
 
+// 增加扩展接口方法测试接口
+router.get('/extend/get', (req, res) => {
+  res.json({
+    msg: 'hello world'
+  })
+})
+
+router.options('/extend/options', (req, res) => {
+  res.end()
+})
+
+router.delete('/extend/delete', (req, res) => {
+  res.end()
+})
+
+router.head('/extend/head', (req, res) => {
+  res.end()
+})
+
+router.post('/extend/post', (req, res) => {
+  res.json(req.body)
+})
+
+router.put('/extend/put', (req, res) => {
+  res.json(req.body)
+})
+
+router.patch('/extend/patch', (req, res) => {
+  res.json(req.body)
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8080

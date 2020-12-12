@@ -74,7 +74,10 @@ export interface Axios {
 
 /**
  * AxiosInstance实例本身是一个方法，并且还继承Axios方法
+ * 函数重载，有两种方式传参
  */
 export interface AxiosInstance extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
+
+  (url: string, config?: AxiosRequestConfig): AxiosPromise
 }

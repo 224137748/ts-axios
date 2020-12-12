@@ -2,7 +2,15 @@ import { AxiosPromise, AxiosRequestConfig, AxiosInstance, Method } from '../type
 import dispatchAxios from './dispatchAxios'
 
 export default class Axios {
-  request(config: AxiosRequestConfig): AxiosPromise {
+  request(url: any, config?: any): AxiosPromise {
+    if (typeof url === 'string') {
+      if (!config) {
+        config = {}
+      }
+      config.url = url
+    } else {
+      config = url
+    }
     return dispatchAxios(config)
   }
 
