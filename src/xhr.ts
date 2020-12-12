@@ -1,6 +1,7 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/'
 
 import { parseHeaders } from './helpers/header'
+import { createError } from './helpers/error'
 
 /**
  * 封装原生js ajax请求
@@ -8,7 +9,7 @@ import { parseHeaders } from './helpers/header'
  */
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { url, data = null, method = 'get', headers, responseType } = config
+    const { url, data = null, method = 'get', headers, responseType, timeout } = config
 
     const request = new XMLHttpRequest()
 
@@ -16,11 +17,17 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       request.responseType = responseType
     }
 
+    if (timeout) {
+      request.timeout = timeout
+    }
+
     request.open(method.toLowerCase(), url, true)
 
     // 监听状态变化
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) return
+      // 网络错误或者超时错误为0
+      if (request.status === 0) return
 
       const responseHeaders = parseHeaders(request.getAllResponseHeaders())
       const responseData = responseType !== 'text' ? request.response : request.responseText
@@ -33,7 +40,17 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         request
       }
 
-      resolve(response)
+      handleResponse(response)
+    }
+
+    // 监听异常（网络错误）
+    request.onerror = function handleError() {
+      reject(createError('Network Error', config, null, request))
+    }
+
+    // 监听请求超时
+    request.ontimeout = function handleTimeout() {
+      reject(createError(`Timeout of ${timeout} ms execeeded`, config, 'ECONNABORTED', request))
     }
 
     Object.keys(headers).forEach(name => {
@@ -45,5 +62,22 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     })
     request.send(data)
+
+    function handleResponse(response: AxiosResponse): void {
+      if (response.status >= 200 && response.status < 300) {
+        resolve(response)
+      } else {
+        // reject(new Error(`Request failed width status code ${response.status}`))
+        reject(
+          createError(
+            `Request failed width status code ${response.status}`,
+            config,
+            null,
+            request,
+            response
+          )
+        )
+      }
+    }
   })
 }

@@ -58,6 +58,26 @@ router.post('/base/buffer', (req, res) => {
   })
 })
 
+//增加接口请求错误测试接口
+app.get('/error/get', (req, res) => {
+  if (Math.random() > .5) {
+    res.json({
+      msg: 'Hello workd'
+    })
+  } else {
+    res.status(500)
+    res.end()
+  }
+})
+
+app.get('/error/timeout', (req, res) => {
+  setTimeout(() => {
+    res.json({
+      msg: 'hello world2'
+    })
+  }, 3000);
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8080

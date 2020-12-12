@@ -24,6 +24,7 @@ export interface AxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 /**
@@ -39,3 +40,13 @@ export interface AxiosResponse {
 }
 
 export interface AxiosPromise extends Promise<AxiosResponse> {}
+
+/**
+ * 定义ajax请求错误接口
+ */
+export interface AxiosError extends Error {
+  config: AxiosRequestConfig
+  code?: string | null
+  request?: any
+  response?: AxiosResponse
+}
