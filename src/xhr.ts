@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/'
 
+import { parseHeaders } from './helpers/header'
 /**
  * 封装原生js ajax请求
  * @param config
@@ -20,7 +21,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) return
 
-      const responseHeaders = request.getAllResponseHeaders()
+      const responseHeaders = parseHeaders(request.getAllResponseHeaders())
       const responseData = responseType !== 'text' ? request.response : request.responseText
       const response: AxiosResponse = {
         status: request.status,
