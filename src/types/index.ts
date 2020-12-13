@@ -81,3 +81,22 @@ export interface AxiosInstance extends Axios {
 
   <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
+
+/**
+ * 定义axios拦截器接口
+ */
+export interface AxiosInterceptorManger<T> {
+  // 添加拦截器
+  use(resolve: ResolvedFn<T>, reject: RejectedFn): number
+
+  // 删除拦截器
+  eject(id: number): void
+}
+
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+  (error: any): any
+}
