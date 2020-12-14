@@ -4,7 +4,7 @@ import { buildURL } from '../helpers/url'
 import { transformRequest, transformRespinse } from '../helpers/data'
 import { processHeaders } from '../helpers/header'
 
-export default function dispatchAxios(config: AxiosRequestConfig): AxiosPromise {
+export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
   return xhr(config).then(res => transformResponseData(res))
 }
