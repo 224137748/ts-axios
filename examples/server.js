@@ -109,6 +109,12 @@ router.patch('/extend/patch', (req, res) => {
   res.json(req.body)
 })
 
+// interceptor
+router.get('/interceptor/get', (req, res) => {
+  res.end('hello')
+})
+
+
 app.use(router)
 
 const port = process.env.PORT || 8080
