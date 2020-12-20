@@ -55,6 +55,7 @@ export interface AxiosError extends Error {
  * 定义Axios 方法类
  */
 export interface Axios {
+  defaults: AxiosRequestConfig
   interceptors: {
     request: AxiosInterceptorManger<AxiosRequestConfig>
     response: AxiosInterceptorManger<AxiosResponse>
