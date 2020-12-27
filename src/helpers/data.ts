@@ -16,7 +16,7 @@ export function transformRequest(data: any): any {
  * 处理接口返回的数据，尝试将string数据转化为json对象
  * @param data any
  */
-export function transformRespinse(data: any): any {
+export function transformResponse(data: any): any {
   if (typeof data === 'string') {
     try {
       data = JSON.parse(data)

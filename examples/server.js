@@ -115,6 +115,12 @@ router.get('/interceptor/get', (req, res) => {
 })
 
 
+// config 合并默认请求参数
+router.post('/config/post', (req, res) => {
+  res.json(req.body)
+})
+
+
 app.use(router)
 
 const port = process.env.PORT || 8080
