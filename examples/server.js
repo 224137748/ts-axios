@@ -121,6 +121,20 @@ router.post('/config/post', (req, res) => {
 })
 
 
+// cancel 取消发送ajax请求
+router.get('/cancel/get', (req, res) => {
+  setTimeout(() => {
+    res.json(req.body)
+
+  }, 1000);
+})
+
+router.post('/cancel/post', (req, res) => {
+  setTimeout(() => {
+    res.json(req.body)
+  }, 1000);
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8080
