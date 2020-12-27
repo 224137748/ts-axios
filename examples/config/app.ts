@@ -41,3 +41,20 @@ axios({
 }).then(res => {
   console.log(res.data)
 })
+
+
+const instance = axios.create({
+  headers: {
+    'hahah': 1231313
+  }
+})
+
+instance({
+  url: '/config/post',
+  method: 'post',
+  data: {
+    abc: 12313
+  }
+}).then(res => {
+  console.log(res)
+})

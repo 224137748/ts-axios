@@ -92,6 +92,13 @@ export interface AxiosInstance extends Axios {
 }
 
 /**
+ * axios默认是一个单例模式，因此需要创建create静态方法，返回新的axios实例
+ */
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
+
+/**
  * 定义axios拦截器接口
  */
 export interface AxiosInterceptorManger<T> {
