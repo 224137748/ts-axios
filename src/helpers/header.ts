@@ -15,7 +15,7 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
   })
 }
 
-export function processHeaders(headers: any, data: any): any {
+export function processHeaders(data: any, headers: any): any {
   /* 格式化headers 键名 */
   normalizeHeaderName(headers, 'Content-Type')
 
